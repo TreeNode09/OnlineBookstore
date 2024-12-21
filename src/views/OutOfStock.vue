@@ -22,7 +22,7 @@ const stocks = ref([])
 onMounted(() => {
     page.currentPage = '/outOfStock'
     page.currentSubPage = '/outOfStock'
-    axios.get('http://localhost:8001/business/stockList'
+    axios.get('business/stockList'
     ).then(response => {
         stocks.value = response.data.data
         isMounted.value = true
