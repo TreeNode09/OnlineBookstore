@@ -1,0 +1,201 @@
+<template><div :style="{
+    '--white': color.palette[color.paletteOption].white,
+    '--light': color.palette[color.paletteOption].light,
+    '--pale': color.palette[color.paletteOption].pale,
+    '--main': color.palette[color.paletteOption].main,
+    '--dark': color.palette[color.paletteOption].dark,
+    '--black': color.palette[color.paletteOption].black,
+    '--shadowLight': color.palette[color.paletteOption].shadowLight,
+    '--shadowDark': color.palette[color.paletteOption].shadowDark}">
+
+<el-menu :default-active="page.currentPage" :ellipsis="false" :router="true"
+    mode="horizontal" :active-text-color="color.palette[color.paletteOption].white">
+    <el-menu-item index="/reader" :disabled="page.currentUser==='No login'">读者</el-menu-item>
+    <el-menu-item index="/admin" :disabled="page.currentUser==='No login'">管理员</el-menu-item>
+    <el-menu-item v-if="page.currentUser==='No login'" index="/login">登录</el-menu-item>
+    <el-menu-item v-else index="/">退出</el-menu-item>
+</el-menu>
+<div class="full">
+    <div class="inline aside">
+        <el-menu v-if="page.currentUser==='Reader'" :default-active="page.currentPage" :router="true"
+            :active-text-color="color.palette[color.paletteOption].black">
+            <el-menu-item v-for="page in page.readerPage" :index="page.path">{{ page.text }}</el-menu-item>
+        </el-menu>
+        <el-menu v-if="page.currentUser==='Admin'" :default-active="page.currentPage" :router="true"
+            :active-text-color="color.palette[color.paletteOption].black">
+            <el-menu-item v-for="page in page.adminPage" :index="page.path">{{ page.text }}</el-menu-item>
+        </el-menu>
+    </div>   
+    <div class="inline main">
+        <router-view/>
+    </div>
+</div>
+
+</div></template>
+
+<script setup>
+import { ref } from 'vue'
+import { useColor } from '@/stores/color'
+import { usePage } from '@/stores/page'
+
+const color = useColor()
+const page = usePage()
+</script>
+
+<style>
+*
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    margin: 0;
+}
+</style>
+
+<!-- 自定义标签 -->
+<style>
+
+</style>
+
+<!-- 字体 -->
+<style>
+
+</style>
+
+<!-- 自定义样式 -->
+<style>
+.el-table,
+.el-form
+{
+    --el-text-color-regular: var(--dark);
+}
+
+.el-table
+{
+    box-shadow: 0 3px 10px var(--shadowLight);
+
+    --el-table-header-text-color: var(--dark);
+    --el-table-border-color: var(--white);
+}
+
+.el-table .ascending .sort-caret.ascending
+{
+    border-bottom-color: var(--main);
+}
+
+.el-table .descending .sort-caret.descending
+{
+    border-top-color: var(--main);
+}
+
+.el-form
+{
+    --el-border-color: var(--light);
+    --el-border-color-hover: var(--main);
+    --el-text-color-placeholder: var(--pale);
+}
+</style>
+
+<!-- 布局样式 -->
+<style scoped>
+.el-menu--horizontal
+{
+    padding-left: 200px;
+    padding-right: 100px;
+
+    background-color: var(--main);
+
+    transition: background-color 0.5s;
+}
+
+.el-menu--horizontal .el-menu-item
+{
+    color: var(--white);
+
+    width: 100px;
+}
+
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover
+{
+    color: var(--white);
+
+    background-color: var(--shadowDark);
+}
+
+.sub-title
+{
+    color: var(--white);
+}
+
+.el-menu--horizontal .el-menu-item:not(.is-disabled).is-active
+{
+    background-color: var(--dark);
+}
+
+.el-menu--horizontal > .el-menu-item:nth-child(2)
+{
+  margin-right: auto;
+}
+
+.full
+{
+    height: calc(100vh - 61px);
+
+    background-color: var(--white);
+
+    transition: background-color 0.5s;
+}
+
+.inline
+{
+    display: inline-block;
+    vertical-align: top;
+    
+    height: 100%;
+}
+
+.aside
+{
+    width: 200px;
+}
+
+.main
+{
+    color: var(--black);
+
+    width: calc(100vw - 200px);
+    padding: 0 75px 0 20px;
+}
+
+.el-menu--vertical
+{
+    width: 200px;
+    height: 100%;
+
+    background-color: var(--light);
+
+    transition: background-color 0.5s;
+}
+
+.el-menu--vertical .el-menu-item
+{
+    color: var(--black);
+    justify-content: center;
+    
+}
+
+.el-menu--vertical .el-menu-item:not(.is-disabled):hover
+{
+    color: var(--black);
+
+    background-color: var(--shadowLight);
+}
+
+.el-menu--vertical .el-menu-item:not(.is-disabled).is-active
+{
+    text-decoration: underline solid 1px;
+    background-color: var(--pale);
+}
+</style>
