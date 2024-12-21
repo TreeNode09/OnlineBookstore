@@ -21,7 +21,7 @@
         <el-input-number v-model="form.count"/>
     </el-form-item>
     <el-form-item>
-        <el-button :color="color.palette[color.paletteOption].main">创建</el-button>
+        <main-button>创建</main-button>
     </el-form-item>
 </el-form>
 </template>

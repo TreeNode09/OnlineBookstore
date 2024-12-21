@@ -1,11 +1,13 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import axios  from 'axios'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import axios  from 'axios'
 
 import App from './App.vue'
 import router from './router'
+
+import mainButton from '@/components/mainButton.vue'
 
 axios.defaults.baseURL = 'http://localhost:8001'
 
@@ -13,5 +15,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
+
+app.component('main-button', mainButton)
 
 app.mount('#app')

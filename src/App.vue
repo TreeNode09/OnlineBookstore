@@ -60,7 +60,12 @@ body
 
 <!-- 自定义标签 -->
 <style>
-
+.sub-menu
+{
+    margin-bottom: 20px;
+    margin-left: -20px;
+    margin-right: -75px;
+}
 </style>
 
 <!-- 字体 -->
@@ -84,6 +89,11 @@ body
     --el-table-border-color: var(--white);
 }
 
+.el-table th, .el-table td
+{
+    transition: width 0.2s;
+}
+
 .el-table .ascending .sort-caret.ascending
 {
     border-bottom-color: var(--main);
@@ -92,6 +102,14 @@ body
 .el-table .descending .sort-caret.descending
 {
     border-top-color: var(--main);
+}
+
+.el-table .selected
+{
+    color: var(--black);
+    
+    --el-table-tr-bg-color: var(--light);
+    --el-table-row-hover-bg-color: var(--light);
 }
 
 .el-form
@@ -163,6 +181,10 @@ body
 .aside
 {
     width: 200px;
+
+    background-color: var(--light);
+
+    transition: background-color 0.5s;
 }
 
 .main
@@ -178,16 +200,13 @@ body
     width: 200px;
     height: 100%;
 
-    background-color: var(--light);
-
-    transition: background-color 0.5s;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .el-menu--vertical .el-menu-item
 {
     color: var(--black);
     justify-content: center;
-    
 }
 
 .el-menu--vertical .el-menu-item:not(.is-disabled):hover
