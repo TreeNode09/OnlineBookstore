@@ -23,6 +23,16 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('@/views/AdminHomeView.vue')
+    },
+    {
+      path: '/outOfStock',
+      name: 'outOfStock',
+      component: () => import('@/views/OutOfStock.vue')
+    },
+    {
+      path: '/purchaseList',
+      name: 'purchaseList',
+      component: () => import('@/views/PurchaseList.vue')
     }
   ],
 })
