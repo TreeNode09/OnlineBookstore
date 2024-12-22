@@ -11,7 +11,7 @@
     <el-table-column v-else width="50px"></el-table-column>
     <el-table-column prop="bookId" label="书号"></el-table-column>
     <el-table-column prop="bookName" label="书名"></el-table-column>
-    <el-table-column prop="inList" label="已加入采购单"></el-table-column>
+    <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
 </el-table>
 </template>
     
@@ -26,10 +26,15 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
-    {bookId: 1, bookName: 'AL', inList: 'Yes'},
-    {bookId: 2, bookName: 'AH', inList: 'No'},
-    {bookId: 3, bookName: 'AX', inList: 'No'}
+    {bookId: 1, bookName: 'AL', inList: '采购中'},
+    {bookId: 2, bookName: 'AH', inList: '未采购'},
+    {bookId: 3, bookName: 'AX', inList: '未采购'}
 ])
+
+const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
+function filterHandler(value, row, column){
+    return row[column['property']] === value
+}
 
 const selectedRow = ref([])
 const selectedIndex = ref([])

@@ -79,6 +79,7 @@ body
 .el-form
 {
     --el-text-color-regular: var(--dark);
+    --el-color-primary: var(--main);
 }
 
 .el-table
