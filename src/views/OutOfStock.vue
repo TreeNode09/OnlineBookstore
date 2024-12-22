@@ -15,18 +15,19 @@
     <el-table-column prop="bookName" label="书名"></el-table-column>
     <el-table-column label="数量">
         <template #default="scope">
-            <el-input-number v-model="stocks[scope.$index].count"/>
+            <span v-if="selectedIndex.indexOf(scope.$index)===-1">{{ stocks[scope.$index].count }}</span>
+            <el-input-number v-else v-model="stocks[scope.$index].count"/>
         </template>
     </el-table-column>
-    <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
+    <!-- <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
     <el-table-column prop="stockId" label="缺货记录号"></el-table-column>
     <el-table-column prop="name" label="书名"></el-table-column>
     <el-table-column prop="isbn" label="书号"></el-table-column>
     <el-table-column prop="publish" label="出版社"></el-table-column>
     <el-table-column prop="supplierName" label="供应商"></el-table-column>
-    <el-table-column prop="date_" label="生成日期"></el-table-column>
+    <el-table-column prop="date_" label="生成日期"></el-table-column> -->
     <!-- <el-table-column v-for="key in Object.keys(stocks)" :prop="key" :lable="key"></el-table-column> -->
-    <!-- <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column> -->
+    <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
 </el-table>
 </template>
     
@@ -47,13 +48,9 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
-<<<<<<< HEAD
-    {bookId: 1, bookName: 'AL', inList: '采购中', count: 10},
-    {bookId: 2, bookName: 'AH', inList: '未采购', count: 10},
-    {bookId: 3, bookName: 'AX', inList: '未采购', count: 10}
-=======
-    
->>>>>>> 89af9631dc1ccf8d419289aa519ac3914b93b00a
+    {bookId: 1, bookName: 'AL', inList: true, count: 10},
+    {bookId: 2, bookName: 'AH', inList: false, count: 10},
+    {bookId: 3, bookName: 'AX', inList: false, count: 10}
 ])
 
 const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
@@ -62,7 +59,7 @@ function filterHandler(value, row, column){
 }
 
 const selectedRow = ref([])
-const selectedIndex = ref([])
+const selectedIndex = ref([])   //选中项的行号，不是id
     
 onMounted(() => {
     page.currentUser = 'Admin'
@@ -76,18 +73,22 @@ onMounted(() => {
 
 function getStockList()
 {
-    axios.get('business/stockList'
-    ).then(response => {
-        stocks.value = response.data.data      
-    })
-    .catch(error => {alert(error)})
+    // axios.get('business/stockList'
+    // ).then(response => {
+    //     stocks.value = response.data.data      
+    // })
+    // .catch(error => {alert(error)})
+    for(let i = 0; i < stocks.value.length; i++){
+        if(stocks.value[i].inList === true) stocks.value[i].inList = '采购中'
+        else stocks.value[i].inList = '未采购'
+    }
 }
 
 function setRowClass({row, rowIndex})
 {
     let color = ''
     for(let i = 0; i < selectedIndex.value.length; i++){
-        if(selectedIndex.value[i] === row.bookId){
+        if(selectedIndex.value[i] === rowIndex){
             color = 'selected'
         }
     }
@@ -110,9 +111,11 @@ function handleSelectionChange(rows)
     selectedRow.value = rows
 
     selectedIndex.value = []
-    if(rows.length > 0){
-        for(let i = 0; i < rows.length; i++){
-            selectedIndex.value.push(rows[i].bookId)
+    for(let i = 0; i < rows.length; i++){
+        for(let j = 0; j < stocks.value.length; j++){
+            if(rows[i].bookId === stocks.value[j].bookId){
+                selectedIndex.value.push(j)
+            }
         }
     }
 }
