@@ -50,7 +50,6 @@ onMounted(() => {
 .login-container{
   display: flex;
   flex-direction: column;
-  padding-right: 150px;
 }
 .logo-container {
   color:darkgray;
