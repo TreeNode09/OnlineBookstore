@@ -13,6 +13,11 @@
     <el-table-column v-else width="50px"></el-table-column>
     <el-table-column prop="bookId" label="书号"></el-table-column>
     <el-table-column prop="bookName" label="书名"></el-table-column>
+    <el-table-column label="数量">
+        <template #default="scope">
+            <el-input-number v-model="stocks[scope.$index].count"/>
+        </template>
+    </el-table-column>
     <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
 </el-table>
 </template>
@@ -34,9 +39,9 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
-    {bookId: 1, bookName: 'AL', inList: '采购中'},
-    {bookId: 2, bookName: 'AH', inList: '未采购'},
-    {bookId: 3, bookName: 'AX', inList: '未采购'}
+    {bookId: 1, bookName: 'AL', inList: '采购中', count: 10},
+    {bookId: 2, bookName: 'AH', inList: '未采购', count: 10},
+    {bookId: 3, bookName: 'AX', inList: '未采购', count: 10}
 ])
 
 const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
