@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import('@/views/OutOfStock.vue')
     },
     {
+      path: '/addOutOfStock',
+      name: 'addOutOfStock',
+      component: () => import('@/views/AddOutOfStock.vue')
+    },
+    {
       path: '/purchaseList',
       name: 'purchaseList',
       component: () => import('@/views/PurchaseList.vue')

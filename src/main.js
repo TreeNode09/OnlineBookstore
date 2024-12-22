@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router'
 
 import mainButton from '@/components/mainButton.vue'
+import plainButton from '@/components/plainButton.vue'
 
 axios.defaults.baseURL = 'http://localhost:8001'
 
@@ -17,5 +18,6 @@ app.use(router)
 app.use(ElementPlus)
 
 app.component('main-button', mainButton)
+    .component('plain-button', plainButton)
 
 app.mount('#app')

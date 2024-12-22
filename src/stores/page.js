@@ -9,6 +9,7 @@ export const usePage = defineStore('page', () => {
     
     const adminPage = ref([
         {path: '/admin', text: '管理中心'},
+        {path: 'bookList', text: '供书管理'},
         {path: '/outOfStock', text: '采购管理'}
     ])
 

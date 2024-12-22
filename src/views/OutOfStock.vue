@@ -4,9 +4,11 @@
     <el-menu-item index="/purchaseList">采购单管理</el-menu-item>
 </el-menu>
 <main-button v-if="!isSelect" @click="startSelect">创建采购单</main-button>
-<main-button v-if="isSelect" @click="endSelect">取消选择</main-button>
+<plain-button v-if="isSelect" @click="endSelect">取消选择</plain-button>
 <main-button v-if="isSelect" @click="postSelect">确认选择</main-button>
-<el-table v-if="isMounted" :data="stocks" :row-class-name="setRowClass" @selection-change="handleSelectionChange">
+<main-button @click="toAdd" class="right">添加缺书记录</main-button>
+<el-table v-if="isMounted" :data="stocks" ref="tableRef"
+    :row-class-name="setRowClass" @selection-change="handleSelectionChange">
     <el-table-column v-if="isSelect" type="selection" :selectable="isSelectable" width="50px"></el-table-column>
     <el-table-column v-else width="50px"></el-table-column>
     <el-table-column prop="bookId" label="书号"></el-table-column>
@@ -18,9 +20,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import router from '@/router'
+
 import { usePage } from '@/stores/page'
+import { useColor } from '@/stores/color'
     
 const page = usePage()
+const color = useColor()
+
+const tableRef = ref()
 
 const isMounted = ref(false)
 const isSelect = ref(false)
@@ -40,15 +48,23 @@ const selectedRow = ref([])
 const selectedIndex = ref([])
     
 onMounted(() => {
+    page.currentUser = 'Admin'
     page.currentPage = '/outOfStock'
     page.currentSubPage = '/outOfStock'
-    // axios.get('business/stockList'
-    // ).then(response => {
-    //     stocks.value = response.data.data
-        isMounted.value = true
-    // })
-    // .catch(error => {alert(error)})
+    color.setOption(1)
+
+    //getStockList()
+    isMounted.value = true
 })
+
+function getStockList()
+{
+    axios.get('business/stockList'
+    ).then(response => {
+        stocks.value = response.data.data      
+    })
+    .catch(error => {alert(error)})
+}
 
 function setRowClass({row, rowIndex})
 {
@@ -68,7 +84,7 @@ function startSelect()
 
 function isSelectable(row)
 {
-    if(row.inList === 'Yes') {return false}
+    if(row.inList === '采购中') {return false}
     else {return true}
 }
 
@@ -87,10 +103,15 @@ function handleSelectionChange(rows)
 function endSelect()
 {
     isSelect.value = false
+    tableRef.value.clearSelection()
 }
 
 function postSelect()
 {
     endSelect()
+}
+
+function toAdd(){
+    router.push('/addOutOfStock')
 }
 </script>

@@ -58,21 +58,6 @@ body
 }
 </style>
 
-<!-- 自定义标签 -->
-<style>
-.sub-menu
-{
-    margin-bottom: 20px;
-    margin-left: -20px;
-    margin-right: -75px;
-}
-</style>
-
-<!-- 字体 -->
-<style>
-
-</style>
-
 <!-- 自定义样式 -->
 <style>
 .el-table,
@@ -84,6 +69,8 @@ body
 
 .el-table
 {
+    margin-top: 20px;
+
     box-shadow: 0 3px 10px var(--shadowLight);
 
     --el-table-header-text-color: var(--dark);
@@ -118,6 +105,21 @@ body
     --el-border-color: var(--light);
     --el-border-color-hover: var(--main);
     --el-text-color-placeholder: var(--pale);
+}
+
+.sub-menu
+{
+    margin-bottom: 20px;
+    margin-left: -20px;
+    margin-right: -75px;
+
+    --el-menu-active-color: var(--main);
+    --el-menu-hover-bg-color: var(--shadowLight);
+}
+
+.right
+{
+    float: right;
 }
 </style>
 
