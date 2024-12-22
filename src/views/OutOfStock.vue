@@ -19,6 +19,14 @@
         </template>
     </el-table-column>
     <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
+    <el-table-column prop="stockId" label="缺货记录号"></el-table-column>
+    <el-table-column prop="name" label="书名"></el-table-column>
+    <el-table-column prop="isbn" label="书号"></el-table-column>
+    <el-table-column prop="publish" label="出版社"></el-table-column>
+    <el-table-column prop="supplierName" label="供应商"></el-table-column>
+    <el-table-column prop="date_" label="生成日期"></el-table-column>
+    <!-- <el-table-column v-for="key in Object.keys(stocks)" :prop="key" :lable="key"></el-table-column> -->
+    <!-- <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column> -->
 </el-table>
 </template>
     
@@ -39,9 +47,13 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
+<<<<<<< HEAD
     {bookId: 1, bookName: 'AL', inList: '采购中', count: 10},
     {bookId: 2, bookName: 'AH', inList: '未采购', count: 10},
     {bookId: 3, bookName: 'AX', inList: '未采购', count: 10}
+=======
+    
+>>>>>>> 89af9631dc1ccf8d419289aa519ac3914b93b00a
 ])
 
 const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
@@ -58,7 +70,7 @@ onMounted(() => {
     page.currentSubPage = '/outOfStock'
     color.setOption(1)
 
-    //getStockList()
+    getStockList()
     isMounted.value = true
 })
 
