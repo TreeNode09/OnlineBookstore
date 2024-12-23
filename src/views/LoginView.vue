@@ -1,6 +1,6 @@
 <template>
-<div class = "login-container">
-    <div class="logo-container" style="display: flex; justify-content: center; align-items: center;">
+<div class = "login-container" style="display: flex; justify-content: center; align-items: center;">
+    <div class="logo-container" >
         <h1 style="font-weight:bold; color:rgba(0,0,0,0.5); font-style: italic">誉达网上书店</h1>
     </div>
     <div class="login-form">
