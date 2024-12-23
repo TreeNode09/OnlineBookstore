@@ -9,9 +9,8 @@
 <main-button @click="toAdd" class="right">添加缺书记录</main-button>
 <el-table v-if="isMounted" :data="stocks" ref="tableRef"
     :row-class-name="setRowClass" @selection-change="handleSelectionChange">
-    <el-table-column v-if="isSelect" type="selection" :selectable="isSelectable" width="50px"></el-table-column>
+    <el-table-column v-if="isSelect" type="selection" width="50px"></el-table-column>
     <el-table-column v-else width="50px"></el-table-column>
-    <!-- <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column> -->
     <el-table-column prop="stockId" label="缺货记录号"></el-table-column>
     <el-table-column prop="name" label="书名"></el-table-column>
     <el-table-column prop="isbn" label="ISBN"></el-table-column>
@@ -45,12 +44,11 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
-    // {bookId: 1, bookName: 'AL', inList: true, count: 10},
-    // {bookId: 2, bookName: 'AH', inList: false, count: 10},
-    // {bookId: 3, bookName: 'AX', inList: false, count: 10}
+    // {stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:00", isbn: "978-7-123-45678",
+    // name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号"}
 ])
 
-const selectedRow = ref({})
+const selectedRow = ref([])
 const selectedIndex = ref([])   //选中项的行号，不是id
     
 onMounted(() => {
@@ -70,25 +68,16 @@ function getStockList()
         stocks.value = response.data.data      
     })
     .catch(error => {alert(error)})
-    // for(let i = 0; i < stocks.value.length; i++){
-    //     if(stocks.value[i].inList === true) {stocks.value[i].inList = '采购中'}
-    //     else {stocks.value[i].inList = '未采购'}
-    // }
 }
 
 function postStockList(){
-    // for(let i = 0; i < selectedRow.value.length; i++){
-    //     if(selectedRow.value[i].inList === '采购中') {selectedRow.value[i].inList === true}
-    //     else {selectedRow.value[i].inList === false}
-
-
-    // }
     axios.post('/business/appendPurchases',selectedRow.value)
     .then(response => {
         alert(response.data.msg)    
     })
     .catch(error => {alert(error)})
 }
+
 function setRowClass({row, rowIndex})
 {
     let color = ''
@@ -100,20 +89,9 @@ function setRowClass({row, rowIndex})
     return color
 }
 
-const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
-function filterHandler(value, row, column){
-    return row[column['property']] === value
-}
-
 function startSelect()
 {
     isSelect.value = true
-}
-
-function isSelectable(row)
-{
-    if(row.inList === '采购中') {return false}
-    else {return true}
 }
 
 function handleSelectionChange(rows)
