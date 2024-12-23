@@ -117,9 +117,21 @@ body
     --el-menu-hover-bg-color: var(--shadowLight);
 }
 
+.el-input
+{
+    --el-input-border-color: var(--light);
+    --el-input-text-color: var(--dark);
+    --el-input-placeholder-color: var(--pale);
+}
+
 .right
 {
     float: right;
+}
+
+.search
+{
+    width: 30%;
 }
 </style>
 

@@ -4,6 +4,8 @@
 </el-menu>
 <el-button v-if="!isDelete" type="danger" @click="startDelete">删除图书</el-button>
 <el-button v-if="isDelete" type="danger" plain @click="endDelete">完成删除</el-button>
+<main-button @click="searchBook" class="right">搜索</main-button>
+<el-input v-model="searchText" placeholder="搜索图书..." clearable class="right search"/>
 <el-table v-if="isMounted" :data="books" style="width: 100%">
     <el-table-column prop="bookId" label="书号" width="75px"></el-table-column>
     <el-table-column prop="name" label="书名" width="200px"></el-table-column>
@@ -15,7 +17,8 @@
     <el-table-column prop="keyword" label="关键词" width="200px"></el-table-column>
     <el-table-column width="75px" fixed="right" >
         <template #default="scope">
-            <el-button type="danger" size="small" :disabled="!isDelete">删除</el-button>
+            <el-button :disabled="!isDelete" @click="deleteBook(scope.row)"
+                type="danger" size="small" >删除</el-button>
         </template>
     </el-table-column>
 </el-table>
@@ -50,6 +53,8 @@ const books = ref([
     inventory: 252, author: "新作者", keyword: "新书 出版"}
 ])
 
+const searchText = ref('')
+
 onMounted(() => {
     page.currentUser = 'Admin'
     page.currentPage = '/bookManage'
@@ -68,9 +73,30 @@ function getBookList(){
     .catch(error => {alert(error)})
 }
 
+function getSearchBook(){
+    axios.get('',    
+    ).then(response => {
+        books.value = response.data.data
+    })
+    .catch(error => {alert(error)})
+}
+
+function deleteBook(){
+    axios.post('',    
+    ).then(response => {
+        books.value = response.data.data
+    })
+    .catch(error => {alert(error)})
+}
+
+function searchBook(){
+    getSearchBook()
+}
+
 function startDelete(){
     isDelete.value = true
 }
+
 
 function endDelete(){
     isDelete.value = false
