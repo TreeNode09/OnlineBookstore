@@ -34,9 +34,9 @@ const tableRef = ref()
 const isMounted = ref(false)
 const isSelect = ref(false)
 const purchases = ref([
-    // {purchaseId: 20241223, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
-    // name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
-    // quantity: 81, finished: false}
+    {purchaseId: 20241223, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
+    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
+    quantity: 81, finished: false}
 ])
 
 const selectedRow = ref([])
@@ -48,7 +48,7 @@ onMounted(() => {
     page.currentSubPage = '/purchaseList'
     color.setOption(1)
 
-    getPurchaseList()
+    //getPurchaseList()
     isMounted.value = true
 
     for(let i = 0; i < purchases.value.length; i++){

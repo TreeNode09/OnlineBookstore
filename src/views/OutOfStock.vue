@@ -44,8 +44,8 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
-    // {stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:00", isbn: "978-7-123-45678",
-    // name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号"}
+    {stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:00", isbn: "978-7-123-45678",
+    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号"}
 ])
 
 const selectedRow = ref([])
@@ -57,7 +57,7 @@ onMounted(() => {
     page.currentSubPage = '/outOfStock'
     color.setOption(1)
 
-    getStockList()
+    //getStockList()
     isMounted.value = true
 })
 

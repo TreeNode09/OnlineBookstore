@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import('@/views/AdminHomeView.vue')
     },
     {
+      path: '/bookManage',
+      name: 'bookManage',
+      component: () => import('@/views/BookManage.vue')
+    },
+    {
       path: '/outOfStock',
       name: 'outOfStock',
       component: () => import('@/views/OutOfStock.vue')

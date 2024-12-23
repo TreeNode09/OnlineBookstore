@@ -25,8 +25,8 @@
         <el-input-number v-model="form.count"/>
     </el-form-item>
     <el-form-item>
-        <main-button>创建</main-button>
         <plain-button @click="toStock">返回</plain-button>
+        <main-button>创建</main-button>       
     </el-form-item>
 </el-form>
 </template>
