@@ -19,15 +19,14 @@
             <el-input-number v-else v-model="stocks[scope.$index].count"/>
         </template>
     </el-table-column>
-    <!-- <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
+    <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
     <el-table-column prop="stockId" label="缺货记录号"></el-table-column>
     <el-table-column prop="name" label="书名"></el-table-column>
     <el-table-column prop="isbn" label="书号"></el-table-column>
     <el-table-column prop="publish" label="出版社"></el-table-column>
     <el-table-column prop="supplierName" label="供应商"></el-table-column>
-    <el-table-column prop="date_" label="生成日期"></el-table-column> -->
+    <el-table-column prop="date_" label="生成日期"></el-table-column>
     <!-- <el-table-column v-for="key in Object.keys(stocks)" :prop="key" :lable="key"></el-table-column> -->
-    <el-table-column prop="inList" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
 </el-table>
 </template>
     
@@ -48,18 +47,13 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 
 const stocks = ref([
-    {bookId: 1, bookName: 'AL', inList: true, count: 10},
-    {bookId: 2, bookName: 'AH', inList: false, count: 10},
-    {bookId: 3, bookName: 'AX', inList: false, count: 10}
+    // {bookId: 1, bookName: 'AL', inList: true, count: 10},
+    // {bookId: 2, bookName: 'AH', inList: false, count: 10},
+    // {bookId: 3, bookName: 'AX', inList: false, count: 10}
 ])
 
-const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
-function filterHandler(value, row, column){
-    return row[column['property']] === value
-}
-
-const selectedRow = ref([])
-const selectedIndex = ref([])   //选中项的行号，不是id
+const selectedRow = ref({})
+const selectedIndex = ref(-1)   //选中项的行号，不是id
     
 onMounted(() => {
     page.currentUser = 'Admin'
@@ -79,8 +73,17 @@ function getStockList()
     // })
     // .catch(error => {alert(error)})
     for(let i = 0; i < stocks.value.length; i++){
-        if(stocks.value[i].inList === true) stocks.value[i].inList = '采购中'
-        else stocks.value[i].inList = '未采购'
+        if(stocks.value[i].inList === true) {stocks.value[i].inList = '采购中'}
+        else {stocks.value[i].inList = '未采购'}
+    }
+}
+
+function postStockList(){
+    for(let i = 0; i < selectedRow.value.length; i++){
+        if(selectedRow.value[i].inList === '采购中') {selectedRow.value[i].inList === true}
+        else {selectedRow.value[i].inList === false}
+
+        // axios.post()
     }
 }
 
@@ -93,6 +96,11 @@ function setRowClass({row, rowIndex})
         }
     }
     return color
+}
+
+const inListFilters = [{text: '采购中', value: '采购中'}, {text: '未采购', value: '未采购'}]
+function filterHandler(value, row, column){
+    return row[column['property']] === value
 }
 
 function startSelect()

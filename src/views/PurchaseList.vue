@@ -13,7 +13,6 @@
     <el-table-column prop="supplierName" label="供应商"></el-table-column>
     <el-table-column prop="date_" label="缺货日期"></el-table-column>
     <el-table-column prop="finished" label="采购状态"></el-table-column>
-    <!-- <el-table-column v-for="key in Object.keys(purchases[0])" :prop="key" :label="key"></el-table-column> -->
 </el-table>
 </template>
 
@@ -21,15 +20,20 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { usePage } from '@/stores/page'
+import { useColor } from '@/stores/color'
 
 const page = usePage()
+const color = useColor()
 
 const isMounted = ref(false)
 const purchases = ref([{bookId: 1, bookName: 'A'}, {bookId: 1, bookName: 'A'}, {bookId: 1, bookName: 'A'}])
 
 onMounted(() => {
+    page.currentUser = 'Admin'
     page.currentPage = '/outOfStock'
     page.currentSubPage = '/purchaseList'
+    color.setOption(1)
+
     axios.get('/business/purchaseList', 
     ).then(response => {
         purchases.value = response.data.data
