@@ -115,6 +115,7 @@ body
 
     --el-menu-active-color: var(--main);
     --el-menu-hover-bg-color: var(--shadowLight);
+    --el-menu-hover-text-color: var(--dark);
 }
 
 .el-input
@@ -122,6 +123,55 @@ body
     --el-input-border-color: var(--light);
     --el-input-text-color: var(--dark);
     --el-input-placeholder-color: var(--pale);
+}
+
+.el-input-number
+{
+    --el-fill-color-light: var(--white);
+    --el-border: var(--pale);
+    --el-color-primary: var(--main);
+}
+
+.el-scrollbar.scroll
+{
+    height: calc(100% - 181px);
+    margin-top: 20px;
+
+    border: 1px solid var(--main);
+    border-radius: 10px;
+}
+
+.el-descriptions
+{
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px var(--shadowLight);
+
+    --el-text-color-primary: var(--black);
+    --el-text-color-regular: var(--dark);
+    --el-border-color-lighter: var(--light);
+    --el-descriptions-item-bordered-label-background: var(--white);
+
+    transition: border-color 0.5s;
+}
+
+.el-descriptions:hover
+{
+    --el-border-color-lighter: var(--pale);
+}
+
+.el-button
+{
+    --el-button-text-color: var(--white);
+}
+
+.el-pagination
+{
+    display: inline-flex;
+
+    --el-pagination-hover-color: var(--main);
+    --el-text-color-primary: var(--black);
+    --el-fill-color-blank: rgba(0, 0, 0, 0);
+    --el-pagination-button-disabled-color: var(--pale);
 }
 
 .right
@@ -132,6 +182,20 @@ body
 .search
 {
     width: 30%;
+}
+
+.small-input
+{
+    width: 100px;
+}
+</style>
+
+<!-- 字体 -->
+ <style>
+h1, h2, h3, h4, h5, h6
+{
+    display: inline;
+    margin: 0;
 }
 </style>
 
@@ -206,7 +270,7 @@ body
 {
     color: var(--black);
 
-    width: calc(100vw - 200px);
+    width: calc(100vw - 250px);
     padding: 0 75px 0 20px;
 }
 

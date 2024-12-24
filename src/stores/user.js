@@ -7,5 +7,7 @@ export const useUser = defineStore('user', () => {
         password: 'password'
     })
 
-    return {userInfo}
+    const bookCart = ref([])
+
+    return {userInfo, bookCart}
 })
