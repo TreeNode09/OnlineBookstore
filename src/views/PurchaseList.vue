@@ -16,7 +16,7 @@
     <el-table-column prop="publish" label="出版社"></el-table-column>
     <el-table-column prop="supplierName" label="供应商"></el-table-column>
     <el-table-column prop="date_" label="缺货日期" sortable></el-table-column>
-    <el-table-column prop="finished" label="状态" :filters="inListFilters" :filter-method="filterHandler"></el-table-column>
+    <el-table-column prop="finished" label="状态" :filters="finishedFilters" :filter-method="filterHandler"></el-table-column>
 </el-table>
 </template>
 
@@ -35,6 +35,15 @@ const isMounted = ref(false)
 const isSelect = ref(false)
 const purchases = ref([
     {purchaseId: 20241223, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
+    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
+    quantity: 81, finished: false},
+    {purchaseId: 20241224, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
+    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
+    quantity: 81, finished: true},
+    {purchaseId: 20241225, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
+    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
+    quantity: 81, finished: true},
+    {purchaseId: 20241226, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
     name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
     quantity: 81, finished: false}
 ])
@@ -78,7 +87,7 @@ function postPurchaseList(){
     }
 }
 
-const inListFilters = [{text: '已完成', value: '已完成'}, {text: '采购中', value: '采购中'}]
+const finishedFilters = [{text: '已完成', value: '已完成'}, {text: '采购中', value: '采购中'}]
 function filterHandler(value, row, column){
     return (row[column['property']] === value)
 }
@@ -87,7 +96,7 @@ function setRowClass({row, rowIndex})
 {
     let color = ''
     for(let i = 0; i < selectedIndex.value.length; i++){
-        if(selectedIndex.value[i] === rowIndex){
+        if(selectedIndex.value[i] === row.purchaseId){
             color = 'selected'
         }
     }
@@ -111,11 +120,7 @@ function handleSelectionChange(rows)
 
     selectedIndex.value = []
     for(let i = 0; i < rows.length; i++){
-        for(let j = 0; j < purchases.value.length; j++){
-            if(rows[i].purchaseId === purchases.value[j].purchaseId){
-                selectedIndex.value.push(j)
-            }
-        }
+        selectedIndex.value.push(rows[i].purchaseId)
     }
 }
 
