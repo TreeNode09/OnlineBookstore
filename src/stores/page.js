@@ -4,7 +4,7 @@ import { ref } from "vue"
 export const usePage = defineStore('page', () => {
     const readerPage = ref([
         {path: '/reader', text: '读者中心'},
-        {path: '/search', text: '搜索图书'}
+        {path: '/bookBrowse', text: '浏览图书'}
     ])
     
     const adminPage = ref([

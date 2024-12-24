@@ -20,6 +20,16 @@ const router = createRouter({
       component: () => import('@/views/ReaderHomeView.vue')
     },
     {
+      path: '/bookBrowse',
+      name: 'bookBrowse',
+      component: () => import('@/views/BookBrowse.vue')
+    },
+    {
+      path: '/bookCart',
+      name: 'bookCart',
+      component: () => import('@/views/BookCart.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('@/views/AdminHomeView.vue')

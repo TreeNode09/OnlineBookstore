@@ -11,7 +11,7 @@
 <el-menu :default-active="page.currentPage" :ellipsis="false" :router="true"
     mode="horizontal" :active-text-color="color.palette[color.paletteOption].white">
     <el-menu-item index="/reader" :disabled="page.currentUser==='No login'"
-        :class="{isActive: page.currentUser==='Reader'}">读者</el-menu-item>
+        :class="{'is-active': page.currentUser==='Reader'}">读者</el-menu-item>
     <el-menu-item index="/admin" :disabled="page.currentUser==='No login'"
         :class="{'is-active': page.currentUser==='Admin'}">管理员</el-menu-item>
     <el-menu-item v-if="page.currentUser==='No login'" index="/login">登录</el-menu-item>
@@ -22,12 +22,12 @@
         <el-menu v-if="page.currentUser==='Reader'" :default-active="page.currentPage" :router="true"
             :active-text-color="color.palette[color.paletteOption].black">
             <el-menu-item v-for="page in page.readerPage" :index="page.path"
-                :class="{isActive: page.currentPage===page.path}">{{ page.text }}</el-menu-item>
+                :class="{'is-active': page.currentPage===page.path}">{{ page.text }}</el-menu-item>
         </el-menu>
         <el-menu v-if="page.currentUser==='Admin'" :default-active="page.currentPage" :router="true"
             :active-text-color="color.palette[color.paletteOption].black">
             <el-menu-item v-for="page in page.adminPage" :index="page.path"
-                :class="{isActive: page.currentPage===page.path}">{{ page.text }}</el-menu-item>
+                :class="{'is-active': page.currentPage===page.path}">{{ page.text }}</el-menu-item>
         </el-menu>
     </div>   
     <div class="inline main">
@@ -173,7 +173,7 @@ body
 
 .el-menu--horizontal > .el-menu-item:nth-child(2)
 {
-  margin-right: auto;
+    margin-right: auto;
 }
 
 .full
