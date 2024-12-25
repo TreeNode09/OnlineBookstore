@@ -18,7 +18,7 @@
     <el-table-column width="75px" fixed="right" >
         <template #default="scope">
             <el-button :disabled="!isDelete" @click="deleteBook(scope.row.bookId)"
-                type="danger" size="small" >删除</el-button>
+                size="small" :icon="Delete" ></el-button>
         </template>
     </el-table-column>
 </el-table>
@@ -32,6 +32,7 @@ import router from '@/router'
 import { usePage } from '@/stores/page'
 import { useColor } from '@/stores/color'
 import { ElMessage } from 'element-plus'
+import { Delete } from '@element-plus/icons-vue'
 
 const page = usePage()
 const color = useColor()
