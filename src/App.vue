@@ -181,6 +181,28 @@ body
     --el-pagination-button-disabled-color: var(--pale);
 }
 
+.el-collapse-item
+{
+    margin-bottom: 10px;
+
+    border: 1px solid var(--light);
+    box-shadow: 0 3px 10px var(--shadowLight);
+}
+
+.el-collapse-item__content
+{
+    padding-bottom: 0;
+}
+
+.el-collapse .el-descriptions
+{
+    margin: auto 0;
+}
+
+.el-collapse .el-table{
+    margin-top: 0;
+}
+
 .right
 {
     float: right;
