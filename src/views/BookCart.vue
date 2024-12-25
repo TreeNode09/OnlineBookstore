@@ -22,7 +22,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import router from '@/router'
-
+import axios from 'axios'
 import { useUser } from '@/stores/user'
 import { usePage } from '@/stores/page'
 import { useColor } from '@/stores/color'
@@ -46,6 +46,10 @@ onMounted(() => {
 })
 
 function postOrder(){
+    axios.post(`customer/createOrder/${user.userInfo.customerId}`)
+    .then(response => {
+        alert(response.data.msg)
+    })
     router.push('/orderSucceed')
 }
 
