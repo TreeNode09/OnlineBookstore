@@ -5,14 +5,14 @@
 </el-menu>
 <el-pagination :total="50" :page-size="7" @current-change="getBookList"
     layout="prev, pager, next"></el-pagination>
-<main-button @click="getSearchBook" class="right">搜索</main-button>
+<main-button @click="getSearchBook" class="right" style="margin-left: 20px;">搜索</main-button>
 <el-input v-model="searchText" placeholder="搜索图书..." clearable class="search right"/>
 <el-scrollbar v-if="isMounted" height="100%" class="scroll">
     <el-descriptions v-for="book in books" :column="4" border>
         <el-descriptions-item label="i" :rowspan="2" label-width="25px" width="250px">
             <h3>{{ book.name }}</h3>
             <main-button v-if="book.count===0" @click="addToCart(book)" class="right">+</main-button>
-            <el-input-number v-else v-model="book.count" @change="handelChange" class="right small-input"/>
+            <el-input-number v-else v-model="book.count" @change="handelChange(book)" class="right small-input"/>
         </el-descriptions-item>
         <el-descriptions-item label="作者" label-width="75px" width="200px">{{ book.author }}</el-descriptions-item>
         <el-descriptions-item label="出版社" label-width="75px" width="200px">{{ book.publish }}</el-descriptions-item>
@@ -51,15 +51,6 @@ onMounted(() => {
     page.currentSubPage = '/bookBrowse'
     color.setOption(2)
 
-    if(user.bookCart.length > 0){
-        for(let i = 0; i < books.value.length; i++){
-            for(let j = 0; j < user.bookCart.length; j++){
-                if(books.value[i].bookId === user.bookCart[j].bookId){
-                    books.value[i].count = user.bookCart[j].count
-                }
-            }
-        }
-    }
     getBookList(1)
     isMounted.value = true
 })
@@ -68,32 +59,34 @@ function getBookList(value){
     if(searchText.value === ""){    
         axios.get('/customer/book/order/0', {params:{ps:7,pn:value}}
         ).then(response => {
-        books.value = response.data.data
-        if(isMounted.value === false){
-            console.log(books.value)
-            for(let i = 0; i < books.value.length; i++){
-                books.value[i]['count'] = 0
-            }
-        }
+            books.value = response.data.data
+            initializeBooks()
         })
         .catch(error => {alert(error)})
     }
     else{
-        axios.get(`/customer/book/${searchText.value}`,{params:{ps:7,pn:value}},
-        ).then(response => {
-        books.value = response.data.data
-        })
-        .catch(error => {alert(error)})
+        getSearchBook(value)
     }
-
 }
 
-function getSearchBook(){
-    axios.get(`/customer/book/${searchText.value}`,
+function getSearchBook(value){
+    axios.get(`/customer/book/${searchText.value}`, {params:{ps:7,pn:value}}
     ).then(response => {
         books.value = response.data.data
+        initializeBooks()
     })
     .catch(error => {alert(error)})
+}
+
+function initializeBooks(){
+    for(let i = 0; i < books.value.length; i++){
+        books.value[i]['count'] = 0
+        for(let j = 0; j < user.bookCart.length; j++){
+            if(books.value[i].bookId === user.bookCart[j].bookId){
+                books.value[i].count = user.bookCart[j].count
+            }
+        }
+    }
 }
 
 function addToCart(book){
@@ -105,11 +98,14 @@ function addToCart(book){
     user.bookCart.push(book)
 }
 
-function handelChange(currentValue, oldValue){
-    if(currentValue === 0){
-        for(let i = 0; i < user.bookCart.length; i++){
-            if(user.bookCart[i].count === 0){
+function handelChange(book){
+    for(let i = 0; i < user.bookCart.length; i++){
+        if(user.bookCart[i].bookId === book.bookId){
+            if(book.count === 0){
                 user.bookCart.splice(i, 1)
+            }
+            else{
+                user.bookCart[i].count = book.count
             }
         }
     }
