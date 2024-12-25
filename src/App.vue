@@ -125,6 +125,13 @@ body
     --el-input-placeholder-color: var(--pale);
 }
 
+.el-input:hover,
+.el-input__wrapper.is-focus
+{
+    --el-input-hover-border-color: var(--pale);
+    --el-input-focus-border-color: var(--main);
+}
+
 .el-input-number
 {
     --el-fill-color-light: var(--white);
