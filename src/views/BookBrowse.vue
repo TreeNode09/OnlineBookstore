@@ -65,8 +65,9 @@ onMounted(() => {
 })
 
 function getBookList(value){
-    axios.get('/customer/book/order/0', {params:{ps:7,pn:value}}
-    ).then(response => {
+    if(searchText.value === ""){    
+        axios.get('/customer/book/order/0', {params:{ps:7,pn:value}}
+        ).then(response => {
         books.value = response.data.data
         if(isMounted.value === false){
             console.log(books.value)
@@ -74,8 +75,17 @@ function getBookList(value){
                 books.value[i]['count'] = 0
             }
         }
-    })
-    .catch(error => {alert(error)})
+        })
+        .catch(error => {alert(error)})
+    }
+    else{
+        axios.get(`/customer/book/${searchText.value}`,{params:{ps:7,pn:value}},
+        ).then(response => {
+        books.value = response.data.data
+        })
+        .catch(error => {alert(error)})
+    }
+
 }
 
 function getSearchBook(){
