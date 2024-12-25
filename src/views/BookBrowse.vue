@@ -12,7 +12,8 @@
         <el-descriptions-item label="i" :rowspan="2" label-width="25px" width="250px">
             <h3>{{ book.name }}</h3>
             <main-button v-if="book.count===0" @click="addToCart(book)" class="right">+</main-button>
-            <el-input-number v-else v-model="book.count" @change="handelChange(book)" class="right small-input"/>
+            <el-input-number v-else v-model="book.count" @change="handelChange(book)" :max="book.inventory"
+                class="right small-input"/>
         </el-descriptions-item>
         <el-descriptions-item label="作者" label-width="75px" width="200px">{{ book.author }}</el-descriptions-item>
         <el-descriptions-item label="出版社" label-width="75px" width="200px">{{ book.publish }}</el-descriptions-item>
@@ -21,6 +22,7 @@
         </el-descriptions-item>
         <el-descriptions-item label="ISBN">{{ book.isbn }}</el-descriptions-item>
         <el-descriptions-item label="标签">{{ book.keyword }}</el-descriptions-item>
+        <el-descriptions-item label="库存">{{ book.inventory }}本</el-descriptions-item>
     </el-descriptions>
 </el-scrollbar>
 </template>
@@ -39,8 +41,8 @@ const user = useUser()
 const isMounted = ref(false)
 
 const books = ref([
-    // {bookId: 4, isbn: "978-7-108-04348-1", name: "活着", publish: "作家出版社", price: 29.0,
-    // inventory: 40, author: "余华", keyword: "小说 人生", count: 0}
+    {bookId: 4, isbn: "978-7-108-04348-1", name: "活着", publish: "作家出版社", price: 29.0,
+    inventory: 40, author: "余华", keyword: "小说 人生", count: 0}
 ])
 
 const searchText = ref('')

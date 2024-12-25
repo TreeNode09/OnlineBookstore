@@ -17,5 +17,7 @@ export const usePage = defineStore('page', () => {
     const currentPage = ref('/')
     const currentSubPage = ref('')
 
-    return {readerPage, adminPage, currentUser, currentPage, currentSubPage}
+    const pushOption = ref('')
+
+    return {readerPage, adminPage, currentUser, currentPage, currentSubPage, pushOption}
 })

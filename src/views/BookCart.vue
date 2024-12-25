@@ -14,9 +14,23 @@
         </template>
     </el-table-column>
 </el-table>
-<h4>总价:</h4><h3>￥{{ totalPrice }}</h3>
-<main-button class="right" @click="payOrder">立即支付</main-button>
-<main-button class="right" @click="postOrder" style="margin-right: 10px;">确认订单</main-button>
+<el-descriptions :column="2" border>
+    <el-descriptions-item label="总价" label-width="80px">
+        <h2>￥{{ totalPrice }}</h2>
+    </el-descriptions-item>
+    <el-descriptions-item label="收货地址" label-width="80px" width="70%">
+        <el-input v-model="user.userInfo.address"></el-input>
+    </el-descriptions-item>
+    <el-descriptions-item label="账户余额">
+        <h3>￥{{ user.userInfo.balance }}</h3>
+    </el-descriptions-item>
+    <el-descriptions-item label="">
+        <main-button class="right" @click="payOrder"
+            :disabled="user.userInfo.address === '' || user.bookCart.length === 0">立即支付</main-button>
+        <main-button class="right" @click="unpayOrder" style="margin-right: 10px;"
+            :disabled="user.userInfo.address === '' || user.bookCart.length === 0">确认订单</main-button>
+    </el-descriptions-item>
+</el-descriptions>
 </template>
 
 <script setup>
@@ -50,11 +64,18 @@ function postOrder(){
     .then(response => {
         alert(response.data.msg)
     })
-    router.push('/orderSucceed')
 }
 
 function payOrder(){
     postOrder()
+    page.pushOption = 'pay'
+    router.push('/orderSucceed')
+}
+
+function unpayOrder(){
+    postOrder()
+    page.pushOption = 'unpay'
+    router.push('/orderSucceed')
 }
 
 function deleteBook(bookId){

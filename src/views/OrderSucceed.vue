@@ -4,6 +4,11 @@
     <el-menu-item index="/bookCart">购物车</el-menu-item>
     <el-menu-item index="/orderSucceed">成功</el-menu-item>
 </el-menu>
+<el-result v-if="isMounted" icon="success" :title="message.title" :sub-title="message.subtitle">
+        <template #extra>
+          <main-button @click="toReader">返回首页</main-button>
+        </template>
+      </el-result>
 </template>
 
 <script setup>
@@ -20,14 +25,30 @@ const user = useUser()
 
 const isMounted = ref(false)
 
+const message = ref({title: '', subtitle: ''})
+
 onMounted(() => {
     page.currentUser = 'Reader'
     page.currentPage = '/bookBrowse'
     page.currentSubPage = '/orderSucceed'
     color.setOption(3)
 
+    if(page.pushOption === 'pay'){
+        message.value.title = '支付成功！'
+        message.value.subtitle = '我们正在准备您的图书...'
+    }
+    else if(page.pushOption === 'unpay'){
+        message.value.title = '下单成功！'
+        message.value.subtitle = '您可稍后支付订单。'
+    }
+    page.pushOption = ''
+    
     isMounted.value = true
 })
+
+function toReader(){
+    router.push('/reader')
+}
 </script>
 
 <style scoped>
