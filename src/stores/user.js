@@ -32,6 +32,5 @@ export const useUser = defineStore('user', () => {
 
     const bookCart = ref([])
 
-    return {userInfo, bookCart,getUserINFO}
-    return {userInfo, userRight, bookCart}
+    return {userInfo,userRight,bookCart,getUserINFO}
 })
