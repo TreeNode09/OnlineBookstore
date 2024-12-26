@@ -37,6 +37,7 @@ import router from '@/router'
 
 import { usePage } from '@/stores/page'
 import { useColor } from '@/stores/color'
+import { ElMessage } from 'element-plus'
     
 const page = usePage()
 const color = useColor()
@@ -99,7 +100,7 @@ function postStockList(){
     .then(response => {
         ElMessage({
             message: response.data.msg,
-            type: 'successful'
+            type: 'success'
         })
     })
     .catch(error => {alert(error)})

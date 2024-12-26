@@ -17,7 +17,7 @@
                 style="width: 100px;"/>
         </template>
     </el-table-column>
-    <el-table-column prop="total" label="信用积分" width="120px" sortable/>
+    <el-table-column prop="totalConsume" label="信用积分" width="120px" sortable/>
     <el-table-column prop="balance" label="账户余额" width="200px">
         <template #default="scope">
             <span v-if="editIndex!==scope.row.customerId">{{ scope.row.balance }}</span>
@@ -56,16 +56,7 @@ const user = useUser()
 const isMounted = ref(false)
 const editIndex = ref(-1)
 
-const users = ref([
-    {customerId: 4, password: 'password1234', userName: '张三', address: '北京市朝阳区望京街道',
-    balance: -250, creditLevel: 4, total: 4799},
-    {customerId: 5, password: 'password1234', userName: '张三', address: '北京市朝阳区望京街道',
-    balance: -250, creditLevel: 4, total: 4799},
-    {customerId: 6, password: 'password1234', userName: '张三', address: '北京市朝阳区望京街道',
-    balance: -250, creditLevel: 4, total: 4799},
-    {customerId: 7, password: 'password1234', userName: '张三', address: '北京市朝阳区望京街道',
-    balance: -250, creditLevel: 4, total: 4799}
-])
+const users = ref([])
 
 const searchText = ref('')
 const newInfo = ref({})
@@ -106,10 +97,10 @@ function postUserInfo(){
 
 function handleChange(currentValue, oldValue){
     if(currentValue > 0){
-        newInfo.value.total = user.userRight[currentValue - 1].nextLevel
+        newInfo.value.totalConsume = user.userRight[currentValue - 1].nextLevel
     }
     else{
-        newInfo.value.total = 0
+        newInfo.value.totalConsume = 0
     }
 }
 

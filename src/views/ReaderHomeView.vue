@@ -19,7 +19,7 @@
     </el-descriptions-item>
     <el-descriptions-item label="信用等级" :rowspan="3" label-width="20px" width="150px">
         <h3>Lv.{{ user.userInfo.creditLevel }}</h3>
-        <el-progress :percentage="100*user.userInfo.total/user.userRight[user.userInfo.creditLevel].nextLevel"
+        <el-progress :percentage="100*user.userInfo.totalConsume/user.userRight[user.userInfo.creditLevel].nextLevel"
             :format="handelFormat" type="circle" :color="color.palette[color.paletteOption].main"/>
     </el-descriptions-item>
     <el-descriptions-item label="账户余额" :span="user.userInfo.balance>0?2:1">
@@ -58,7 +58,7 @@ const isEditing = ref(false)
 const chargeOptions = ref([50, 100, 200, 500, 1000])
 const selectedCharge = ref(0)
 
-const newInfo = ref({customerId: 4, password: '', userName: '', address:'', balance: -250, creditLevel:4, total: 4799})
+const newInfo = ref({})
 
 onMounted(() => {
     page.currentPage = '/reader'
@@ -95,7 +95,7 @@ function postCharge(){
 }
 
 function handelFormat(percentage){
-    return user.userInfo.total.toString() + '/' + user.userRight[user.userInfo.creditLevel].nextLevel.toString()
+    return user.userInfo.totalConsume.toString() + '/' + user.userRight[user.userInfo.creditLevel].nextLevel.toString()
 }
 
 function startEdit(){

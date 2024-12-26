@@ -34,11 +34,13 @@ const color = useColor()
 const user = useUser()
     
 onMounted(() => {
+    user.getUserInfo()
+    console.log(user.userInfo)
     page.currentPage = '/login'
 })
 
 function toHome(){
-    user.getUserInfo()
+    
     router.push('/reader')
 }
 </script>

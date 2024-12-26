@@ -26,6 +26,7 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { usePage } from '@/stores/page'
 import { useColor } from '@/stores/color'
+import { ElMessage } from 'element-plus'
 
 const page = usePage()
 const color = useColor()
@@ -59,7 +60,7 @@ function getPurchaseList(){
             if(purchases.value[i].finished === true){
                 purchases.value[i].finished = '已完成'
             }
-            else{
+            else if(purchases.value[i].finished === false){
                 purchases.value[i].finished = '采购中'
             }
         }
@@ -67,13 +68,12 @@ function getPurchaseList(){
     .catch(error => {alert(error)})
 }
 
-function postPurchaseList(){
+async function postPurchaseList(){
     for(let i = 0; i < selectedRow.value.length; i++){
-        if(selectedRow.value[i].finished === '已完成') {selectedRow.value[i].finished = true}
-        else {selectedRow.value[i].finished = false}
-        axios.put('business/updatePurchase', selectedRow.value)
-        .catch(error => {alert(error)})
+        selectedRow.value[i].finished = 0
     }
+    await updateFinished()
+    getPurchaseList()
 }
 
 const finishedFilters = [{text: '已完成', value: '已完成'}, {text: '采购中', value: '采购中'}]
@@ -81,6 +81,14 @@ function filterHandler(value, row, column){
     return (row[column['property']] === value)
 }
 
+function updateFinished()
+{
+    return axios.put('business/updatePurchase', selectedRow.value)
+            .then(response =>{
+            return response
+             }) 
+            .catch(error => {alert(error)})
+} 
 function setRowClass({row, rowIndex})
 {
     let color = ''
