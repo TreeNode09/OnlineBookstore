@@ -12,9 +12,7 @@
         <el-input v-model="form.bookName"/>
     </el-form-item>
     <el-form-item label="出版社">
-        <el-select v-model="form.press">
-            <el-option v-for="press in presses" :label="press.pressName" :value="press.pressName"/>
-        </el-select>
+        <el-input v-model="form.press"/>
     </el-form-item>
     <el-form-item label="供应商">
         <el-select v-model="form.supplier">

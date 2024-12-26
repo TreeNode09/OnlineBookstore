@@ -15,11 +15,15 @@ export const useUser = defineStore('user', () => {
         total: 4799
     })
 
-    const getUserINFO = () => {
+    const getUserInfo = () => {
         axios.get(`/customer/getINFO/${userInfo.value.customerId}`)
         .then(response =>{
             userInfo.value = response.data.data
         })
+    }
+
+    const postUserInfo = () => {
+        axios.post()
     }
 
     const userRight = ref([
@@ -35,5 +39,5 @@ export const useUser = defineStore('user', () => {
 
     const bookCart = ref([])
 
-    return {userInfo,userRight,bookCart,getUserINFO}
+    return {userInfo,userRight,bookCart,getUserInfo, postUserInfo}
 })

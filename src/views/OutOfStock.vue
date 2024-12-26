@@ -4,13 +4,9 @@
     <el-menu-item index="/purchaseList">采购单管理</el-menu-item>
 </el-menu>
 <main-button v-if="!isSelect" @click="startSelect">创建采购单</main-button>
-<el-select v-if="isSelect"v-model="selectedSupplierId" placeholder="供应商" @change="getStockListBySupplier" style="width: 200px;margin-right:16px">
-    <el-option
-    v-for="item in suppliers"
-    :key="item.supplierId"
-    :label="item.supplierName"
-    :value="item.supplierId"
-    />
+<el-select v-if="isSelect"v-model="selectedSupplierId" placeholder="供应商" @change="getStockListBySupplier"
+    style="width: 200px;margin-right:16px">
+    <el-option v-for="item in suppliers" :key="item.supplierId" :label="item.supplierName" :value="item.supplierId"/>
 </el-select>
 <plain-button v-if="isSelect" @click="endSelect">取消选择</plain-button>
 <main-button v-if="isSelect" @click="postSelect">确认选择</main-button>
@@ -26,7 +22,7 @@
     <el-table-column label="数量">
         <template #default="scope">
             <span v-if="selectedIndex.length===0||selectedIndex.indexOf(scope.$index)===-1">{{ scope.row.num }}</span>
-            <el-input-number v-else v-model="scope.row.num"/>
+            <el-input-number v-else v-model="scope.row.num" :min="scope.row.num"/>
         </template>
     </el-table-column>
     <el-table-column prop="date_" label="生成日期"></el-table-column>

@@ -12,7 +12,8 @@ export const usePage = defineStore('page', () => {
         {path: '/admin', text: '管理中心'},
         {path: '/bookManage', text: '供书管理'},
         {path: '/outOfStock', text: '采购管理'},
-        {path: '/userManage', text: '客户管理'}
+        {path: '/userManage', text: '客户管理'},
+        {path: '/supplierManage', text: '供书商管理'}
     ])
 
     const currentUser = ref('No login')

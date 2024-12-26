@@ -47,17 +47,17 @@ const orderState = ref('')
 
 const options = [
     {value: '未支付', label: '未支付'},
-    {value: '已支付', label: '已支付'}
+    {value: '已支付', label: '已支付'},
+    {value: '已完成', label: '已完成'}
 ]
 
 const getOrders  = () =>{
-    // if(orderState.value === "未支付"){
-    //     getCartOrders()
-    // }
-    // else if(orderState.value === "已支付"){
-    //     getHistoryOrders()
-    // }
-    switchOrderState()
+    if(orderState.value === "未支付"){
+        getCartOrders()
+    }
+    else if(orderState.value === "已支付"){
+        getHistoryOrders()
+    }
 }
 
 onMounted(() => {
@@ -69,37 +69,36 @@ onMounted(() => {
 })
     
 const orders =ref([
-    {orderId: 13, customerId: "1870726102738018305", state: 0, orderAddress : '北京市朝阳区望京街道', totalPrice: 10.0,
-    orderItems:[
-        {orderItemId: 1984016385,orderId: 13,bookId: 4,orderNum: 2},
-        {orderItemId: 2025959426, orderId: 13, bookId: 5, orderNum: 3}]
-    },
-    {orderId: 14, customerId: "1870726102738018305", state: 0, orderAddress : '北京市朝阳区望京街道', totalPrice: 20.0,
-    orderItems:[
-        {orderItemId: 1984016385,orderId: 13,bookId: 4,orderNum: 2},
-        {orderItemId: 2025959426, orderId: 13, bookId: 5, orderNum: 3}]
-    },
-    {orderId: 15, customerId: "1870726102738018305", state: 1, orderAddress : '北京市朝阳区望京街道', totalPrice: 10.5,
-    orderItems:[
-        {orderItemId: 1984016385,orderId: 13,bookId: 4,orderNum: 2},
-        {orderItemId: 2025959426, orderId: 13, bookId: 5, orderNum: 3}]
-    }
+    // {orderId: 13, customerId: "1870726102738018305", state: 0, orderAddress : '北京市朝阳区望京街道', totalPrice: 10.0,
+    // orderItems:[
+    //     {orderItemId: 1984016385,orderId: 13,bookId: 4,orderNum: 2},
+    //     {orderItemId: 2025959426, orderId: 13, bookId: 5, orderNum: 3}]
+    // },
+    // {orderId: 14, customerId: "1870726102738018305", state: 0, orderAddress : '北京市朝阳区望京街道', totalPrice: 20.0,
+    // orderItems:[
+    //     {orderItemId: 1984016385,orderId: 13,bookId: 4,orderNum: 2},
+    //     {orderItemId: 2025959426, orderId: 13, bookId: 5, orderNum: 3}]
+    // },
+    // {orderId: 15, customerId: "1870726102738018305", state: 1, orderAddress : '北京市朝阳区望京街道', totalPrice: 10.5,
+    // orderItems:[
+    //     {orderItemId: 1984016385,orderId: 13,bookId: 4,orderNum: 2},
+    //     {orderItemId: 2025959426, orderId: 13, bookId: 5, orderNum: 3}]
+    // }
 ])
 
 const getCartOrders = () =>{
     axios.get(`/customer/cartOrder/${user.userInfo.customerId}`)
     .then(response =>{
-        // console.log(response.data.data)
         orders.value = response.data.data
-
+        switchOrderState()
     })
 }
 
 const getHistoryOrders = () =>{
     axios.get(`/customer/historyOrder/${user.userInfo.customerId}`)
     .then(response =>{
-        console.log(response.data.data)
         orders.value = response.data.data
+        switchOrderState()
     })
 }
 
