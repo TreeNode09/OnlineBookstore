@@ -148,6 +148,16 @@ body
     border-radius: 10px;
 }
 
+.el-select
+{
+    --el-border-color: var(--light);
+    --el-border-color-hover: var(--main);
+    --el-color-primary: var(--main);
+    --el-text-color-regular: var(--main);
+    --el-text-color-placeholder: var(--light);
+    --el-select-input-color: var(--main);
+}
+
 .el-descriptions
 {
     margin-bottom: 10px;
@@ -164,11 +174,6 @@ body
 .el-descriptions:hover
 {
     --el-border-color-lighter: var(--pale);
-}
-
-.el-button
-{
-    --el-button-text-color: var(--white);
 }
 
 .el-pagination
