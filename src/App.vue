@@ -203,6 +203,27 @@ body
     margin-top: 0;
 }
 
+.el-progress--circle
+{
+    vertical-align: top;
+}
+
+.el-radio-button
+{
+    --el-radio-button-checked-bg-color: var(--main);
+    --el-radio-button-checked-border-color: var(--dark);
+}
+
+.el-radio-button__inner
+{
+    border: 1px solid var(--light);
+}
+
+.el-radio-button__inner:hover
+{
+    color: var(--pale);
+}
+
 .right
 {
     float: right;

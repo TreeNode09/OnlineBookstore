@@ -14,9 +14,9 @@
         </template>
     </el-table-column>
 </el-table>
-<el-descriptions :column="3" border>
+<el-descriptions border>
     <el-descriptions-item label="总价" label-width="80px">
-        <h3 v-if="user.userInfo.creditLevel>0" style="color: var(--pale); text-decoration: line-through;">{{ totalPrice }}</h3>
+        <h3 v-if="user.userInfo.creditLevel>0" style="color: var(--pale); text-decoration: line-through;">￥{{ totalPrice }}</h3>
         <h2>￥{{ discountPrice.toFixed(2) }}</h2>
     </el-descriptions-item>
     <el-descriptions-item label="收货地址" label-width="80px" width="70%" :span="2">
