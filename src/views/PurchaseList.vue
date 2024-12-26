@@ -15,6 +15,7 @@
     <el-table-column prop="isbn" label="书号"></el-table-column>
     <el-table-column prop="publish" label="出版社"></el-table-column>
     <el-table-column prop="supplierName" label="供应商"></el-table-column>
+    <el-table-column prop="quantity" label="采购数量"></el-table-column>
     <el-table-column prop="date_" label="缺货日期" sortable></el-table-column>
     <el-table-column prop="finished" label="状态" :filters="finishedFilters" :filter-method="filterHandler"></el-table-column>
 </el-table>
@@ -33,20 +34,7 @@ const tableRef = ref()
 
 const isMounted = ref(false)
 const isSelect = ref(false)
-const purchases = ref([
-    {purchaseId: 20241223, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
-    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
-    quantity: 81, finished: false},
-    {purchaseId: 20241224, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
-    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
-    quantity: 81, finished: true},
-    {purchaseId: 20241225, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
-    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
-    quantity: 81, finished: true},
-    {purchaseId: 20241226, stockId: 1, bookId: 9, supplierId: "4", num: 81, date_: "2024-12-20 00:00:10", isbn: "978-7-123-45678",
-    name: "新书", publish: "新出版社", price: 45.0, author: "新作者", supplierName: "新华书店", address: "北京市西城区西长安街丙17号",
-    quantity: 81, finished: false}
-])
+const purchases = ref([])
 
 const selectedRow = ref([])
 const selectedIndex = ref([])
@@ -57,19 +45,24 @@ onMounted(() => {
     page.currentSubPage = '/purchaseList'
     color.setOption(1)
 
-    //getPurchaseList()
+    getPurchaseList()
     isMounted.value = true
 
-    for(let i = 0; i < purchases.value.length; i++){
-        if(purchases.value[i].finished === true) {purchases.value[i].finished = '已完成'}
-        else {purchases.value[i].finished = '采购中'}
-    }
+
 })
 
 function getPurchaseList(){
     axios.get('/business/purchaseList', 
     ).then(response => {
         purchases.value = response.data.data
+        for(let i = 0; i < purchases.value.length; i++){
+            if(purchases.value[i].finished === true){
+                purchases.value[i].finished = '已完成'
+            }
+            else{
+                purchases.value[i].finished = '采购中'
+            }
+        }
     })
     .catch(error => {alert(error)})
 }
@@ -78,11 +71,7 @@ function postPurchaseList(){
     for(let i = 0; i < selectedRow.value.length; i++){
         if(selectedRow.value[i].finished === '已完成') {selectedRow.value[i].finished = true}
         else {selectedRow.value[i].finished = false}
-
-        axios.post('', 
-        ).then(response => {
-            
-        })
+        axios.put('business/updatePurchase', selectedRow.value)
         .catch(error => {alert(error)})
     }
 }

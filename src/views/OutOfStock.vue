@@ -99,9 +99,12 @@ function getSuppliers(){
 }
 
 function postStockList(){
-    axios.post('/business/appendPurchases',selectedRow.value)
+    axios.post(`/business/appendPurchases/${selectedSupplierId.value}`,selectedRow.value)
     .then(response => {
-        alert(response.data.msg)
+        ElMessage({
+            message: response.data.msg,
+            type: 'successful'
+        })
     })
     .catch(error => {alert(error)})
 }
