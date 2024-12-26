@@ -3,7 +3,7 @@ import { ref } from "vue"
 
 export const usePage = defineStore('page', () => {
     const readerPage = ref([
-        {path: '/reader', text: '读者中心'},
+        {path: '/reader', text: '客户中心'},
         {path: '/bookBrowse', text: '购买图书'},
         {path: '/checkOrder', text: '查看订单'}
     ])
@@ -11,7 +11,8 @@ export const usePage = defineStore('page', () => {
     const adminPage = ref([
         {path: '/admin', text: '管理中心'},
         {path: '/bookManage', text: '供书管理'},
-        {path: '/outOfStock', text: '采购管理'}
+        {path: '/outOfStock', text: '采购管理'},
+        {path: '/userManage', text: '客户管理'}
     ])
 
     const currentUser = ref('No login')

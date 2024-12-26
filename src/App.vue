@@ -11,7 +11,7 @@
 <el-menu :default-active="page.currentPage" :ellipsis="false" :router="true"
     mode="horizontal" :active-text-color="color.palette[color.paletteOption].white">
     <el-menu-item index="/reader" :disabled="page.currentUser==='No login'"
-        :class="{'is-active': page.currentUser==='Reader'}">读者</el-menu-item>
+        :class="{'is-active': page.currentUser==='Reader'}">客户</el-menu-item>
     <el-menu-item index="/admin" :disabled="page.currentUser==='No login'"
         :class="{'is-active': page.currentUser==='Admin'}">管理员</el-menu-item>
     <el-menu-item v-if="page.currentUser==='No login'" index="/login">登录</el-menu-item>

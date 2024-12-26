@@ -5,7 +5,7 @@
 </el-menu>
 <el-pagination :total="50" :page-size="7" @current-change="getBookList"
     layout="prev, pager, next"></el-pagination>
-<main-button @click="getSearchBook" class="right" style="margin-left: 20px;">搜索</main-button>
+<main-button @click="getSearchBook" class="right" style="margin-left: 10px;">搜索</main-button>
 <el-input v-model="searchText" placeholder="搜索图书..." clearable class="search right"/>
 <el-scrollbar v-if="isMounted" height="100%" class="scroll">
     <el-descriptions v-for="book in books" :column="4" border>

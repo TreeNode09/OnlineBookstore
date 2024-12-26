@@ -78,6 +78,14 @@ function getUserInfo(){
     .catch(error => {alert(error)})
 }
 
+function postUserInfo(){
+    axios.post('', 
+    ).then(response => {
+        
+    })
+    .catch(error => {alert(error)})
+}
+
 function postCharge(){
     axios.post('', 
     ).then(response => {
@@ -100,6 +108,7 @@ function endEdit(){
 }
 
 function saveEdit(){
+    //postUserInfo()
     user.userInfo = newInfo.value
     endEdit()
 }
