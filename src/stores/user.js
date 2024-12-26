@@ -29,6 +29,8 @@ export const useUser = defineStore('user', () => {
         {discount: 0.15, overdraw: 100, nextLevel: 5000},
         {discount: 0.2, overdraw: 200, nextLevel: 5000},
         {discount: 0.25, overdraw: '∞'}
+
+        
     ])
 
     const bookCart = ref([])
