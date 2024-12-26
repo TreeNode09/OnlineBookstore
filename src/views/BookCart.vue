@@ -14,20 +14,25 @@
         </template>
     </el-table-column>
 </el-table>
-<el-descriptions :column="2" border>
+<el-descriptions border>
     <el-descriptions-item label="总价" label-width="80px">
-        <h2>￥{{ totalPrice }}</h2>
+        <h3 v-if="user.userInfo.creditLevel>0" style="color: var(--pale); text-decoration: line-through;">￥{{ totalPrice }}</h3>
+        <h2>￥{{ discountPrice.toFixed(2) }}</h2>
     </el-descriptions-item>
-    <el-descriptions-item label="收货地址" label-width="80px" width="70%">
+    <el-descriptions-item label="收货地址" label-width="80px" width="70%" :span="2">
         <el-input v-model="user.userInfo.address"></el-input>
     </el-descriptions-item>
     <el-descriptions-item label="账户余额">
-        <h3>￥{{ user.userInfo.balance }}</h3>
+        <h3 v-if="user.userInfo.balance>=0">￥{{ user.userInfo.balance.toFixed(2) }}</h3>
+        <h3 v-else>￥0</h3>
+    </el-descriptions-item>
+    <el-descriptions-item v-if="user.userInfo.balance<0" label="透支金额">
+        <h3>￥{{ -user.userInfo.balance.toFixed(2) }}/{{ user.userRight[user.userInfo.creditLevel].overdraw }}</h3>
     </el-descriptions-item>
     <el-descriptions-item label="">
         <main-button class="right" @click="payOrder"
-            :disabled="user.userInfo.address === '' || user.bookCart.length === 0">立即支付</main-button>
-        <main-button class="right" @click="unpayOrder" style="margin-right: 10px;"
+            :disabled="user.userInfo.address===''||user.bookCart.length===0||user.userInfo.balance<totalPrice">立即支付</main-button>
+        <main-button v-if="user.userInfo.creditLevel>=3" @click="unpayOrder" class="right" style="margin-right: 10px;"
             :disabled="user.userInfo.address === '' || user.bookCart.length === 0">确认订单</main-button>
     </el-descriptions-item>
 </el-descriptions>
@@ -49,6 +54,7 @@ const user = useUser()
 const isMounted = ref(false)
 
 const totalPrice = ref(0)
+const discountPrice = ref(0)
 
 const orderId = ref(0)
 
@@ -144,5 +150,6 @@ function calcTotalPrice(){
     for(let i = 0; i < user.bookCart.length; i++){
         totalPrice.value += user.bookCart[i].price * user.bookCart[i].orderNum
     }
+    discountPrice.value = totalPrice.value * (1 - user.userRight[user.userInfo.creditLevel].discount)
 }
 </script>

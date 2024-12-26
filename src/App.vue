@@ -181,6 +181,49 @@ body
     --el-pagination-button-disabled-color: var(--pale);
 }
 
+.el-collapse-item
+{
+    margin-bottom: 10px;
+
+    border: 1px solid var(--light);
+    box-shadow: 0 3px 10px var(--shadowLight);
+}
+
+.el-collapse-item__content
+{
+    padding-bottom: 0;
+}
+
+.el-collapse .el-descriptions
+{
+    margin: auto 0;
+}
+
+.el-collapse .el-table{
+    margin-top: 0;
+}
+
+.el-progress--circle
+{
+    vertical-align: top;
+}
+
+.el-radio-button
+{
+    --el-radio-button-checked-bg-color: var(--main);
+    --el-radio-button-checked-border-color: var(--dark);
+}
+
+.el-radio-button__inner
+{
+    border: 1px solid var(--light);
+}
+
+.el-radio-button__inner:hover
+{
+    color: var(--pale);
+}
+
 .right
 {
     float: right;

@@ -7,18 +7,18 @@
 <main-button @click="searchBook" class="right">搜索</main-button>
 <el-input v-model="searchText" placeholder="搜索图书..." clearable class="right search"/>
 <el-table v-if="isMounted" :data="books" style="width: 100%">
-    <el-table-column prop="bookId" label="书号" width="75px"></el-table-column>
-    <el-table-column prop="name" label="书名" width="200px"></el-table-column>
-    <el-table-column prop="isbn" label="ISBN" width="175px"></el-table-column>
-    <el-table-column prop="publish" label="出版社" width="200px"></el-table-column>
-    <el-table-column prop="price" label="售价" width="100px" sortable></el-table-column>
-    <el-table-column prop="inventory" label="库存量" width="75px"></el-table-column>
-    <el-table-column prop="author" label="作者" width="150px"></el-table-column>
-    <el-table-column prop="keyword" label="关键词" width="200px"></el-table-column>
+    <el-table-column prop="bookId" label="书号" width="75px"/>
+    <el-table-column prop="name" label="书名" width="200px"/>
+    <el-table-column prop="isbn" label="ISBN" width="175px"/>
+    <el-table-column prop="publish" label="出版社" width="200px"/>
+    <el-table-column prop="price" label="售价" width="100px" sortable/>
+    <el-table-column prop="inventory" label="库存量" width="75px"/>
+    <el-table-column prop="author" label="作者" width="150px"/>
+    <el-table-column prop="keyword" label="关键词" width="200px"/>
     <el-table-column width="75px" fixed="right" >
         <template #default="scope">
             <el-button :disabled="!isDelete" @click="deleteBook(scope.row.bookId)"
-                size="small" :icon="Delete" ></el-button>
+                size="small" :icon="Delete" type="danger"></el-button>
         </template>
     </el-table-column>
 </el-table>
@@ -102,7 +102,6 @@ function searchBook(){
 function startDelete(){
     isDelete.value = true
 }
-
 
 function endDelete(){
     isDelete.value = false
