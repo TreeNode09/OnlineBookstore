@@ -40,6 +40,7 @@ import axios from 'axios'
 import { useUser } from '@/stores/user'
 import { usePage } from '@/stores/page'
 import { useColor } from '@/stores/color'
+import { ElMessage } from 'element-plus'
 
 const page = usePage()
 const color = useColor()
@@ -48,6 +49,8 @@ const user = useUser()
 const isMounted = ref(false)
 
 const totalPrice = ref(0)
+
+const orderId = ref(0)
 
 onMounted(() => {
     page.currentUser = 'Reader'
@@ -59,17 +62,66 @@ onMounted(() => {
     calcTotalPrice()
 })
 
-function postOrder(){
-    axios.post(`customer/createOrder/${user.userInfo.customerId}`)
-    .then(response => {
-        alert(response.data.msg)
-    })
+async function payOrder() {
+  try {
+    // 等待postOrder函数中的请求完成
+    await postOrder();
+    // postOrder完成后，继续执行下面的代码
+    axios.get('/customer/payBill', { params: { orderId: orderId.value } })
+      .then(response => {
+        if (response.data.rs) {
+          ElMessage({
+            message: response.data.msg,
+            type: 'success'
+          });
+          page.pushOption = 'pay';
+          router.push('/orderSucceed');
+        } else {
+          ElMessage({
+            message: response.data.msg,
+            type: 'warning'
+          });
+        }
+      })
+      .catch(error => {
+        // 处理get请求的错误
+        console.error(error);
+        ElMessage({
+          message: '支付请求失败',
+          type: 'error'
+        });
+      });
+  } catch (error) {
+    // 处理post请求的错误
+    console.error(error);
+    ElMessage({
+      message: '订单创建失败',
+      type: 'error'
+    });
+  }
 }
 
-function payOrder(){
-    postOrder()
-    page.pushOption = 'pay'
-    router.push('/orderSucceed')
+// 修改postOrder函数，使其返回一个Promise
+function postOrder() {
+  console.log(user.bookCart);
+  return axios.post(`customer/createOrder/${user.userInfo.customerId}`, user.bookCart, {
+    params: {
+      totalPrice: totalPrice.value,
+      address: user.userInfo.address
+    }
+  })
+  .then(response => {
+    orderId.value = response.data.data;
+    console.log(orderId.value);
+    ElMessage({
+      message: response.data.msg,
+      type: 'success'
+    });
+    return response; // 返回响应对象，以便在payOrder中使用
+  })
+  .catch(error => {
+    throw error; // 如果有错误，抛出异常
+  });
 }
 
 function unpayOrder(){
@@ -90,7 +142,7 @@ function deleteBook(bookId){
 function calcTotalPrice(){
     totalPrice.value = 0
     for(let i = 0; i < user.bookCart.length; i++){
-        totalPrice.value += user.bookCart[i].price * user.bookCart[i].count
+        totalPrice.value += user.bookCart[i].price * user.bookCart[i].orderNum
     }
 }
 </script>
