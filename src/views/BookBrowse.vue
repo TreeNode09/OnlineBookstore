@@ -11,8 +11,8 @@
     <el-descriptions v-for="book in books" :column="4" border>
         <el-descriptions-item label="i" :rowspan="2" label-width="25px" width="250px">
             <h3>{{ book.name }}</h3>
-            <main-button v-if="book.count===0" @click="addToCart(book)" class="right">+</main-button>
-            <el-input-number v-else v-model="book.count" @change="handelChange(book)" :max="book.inventory"
+            <main-button v-if="book.orderNum===0" @click="addToCart(book)" class="right">+</main-button>
+            <el-input-number v-else v-model="book.orderNum" @change="handelChange(book)" :max="book.inventory"
                 class="right small-input"/>
         </el-descriptions-item>
         <el-descriptions-item label="作者" label-width="75px" width="200px">{{ book.author }}</el-descriptions-item>
@@ -42,7 +42,7 @@ const isMounted = ref(false)
 
 const books = ref([
     {bookId: 4, isbn: "978-7-108-04348-1", name: "活着", publish: "作家出版社", price: 29.0,
-    inventory: 40, author: "余华", keyword: "小说 人生", count: 0}
+    inventory: 40, author: "余华", keyword: "小说 人生", orderNum: 0}
 ])
 
 const searchText = ref('')
@@ -82,10 +82,10 @@ function getSearchBook(value){
 
 function initializeBooks(){
     for(let i = 0; i < books.value.length; i++){
-        books.value[i]['count'] = 0
+        books.value[i]['orderNum'] = 0
         for(let j = 0; j < user.bookCart.length; j++){
             if(books.value[i].bookId === user.bookCart[j].bookId){
-                books.value[i].count = user.bookCart[j].count
+                books.value[i].orderNum = user.bookCart[j].orderNum
             }
         }
     }
@@ -94,7 +94,7 @@ function initializeBooks(){
 function addToCart(book){
     for(let i = 0; i < books.value.length; i++){
         if(books.value[i].bookId === book.bookId){
-            books.value[i].count++
+            books.value[i].orderNum++
         }
     }
     user.bookCart.push(book)
@@ -103,11 +103,11 @@ function addToCart(book){
 function handelChange(book){
     for(let i = 0; i < user.bookCart.length; i++){
         if(user.bookCart[i].bookId === book.bookId){
-            if(book.count === 0){
+            if(book.orderNum === 0){
                 user.bookCart.splice(i, 1)
             }
             else{
-                user.bookCart[i].count = book.count
+                user.bookCart[i].orderNum = book.orderNum
             }
         }
     }
