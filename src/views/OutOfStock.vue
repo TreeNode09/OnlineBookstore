@@ -26,7 +26,7 @@
     <el-table-column label="数量">
         <template #default="scope">
             <span v-if="selectedIndex.length===0||selectedIndex.indexOf(scope.$index)===-1">{{ scope.row.num }}</span>
-            <el-input-number v-else v-model="scope.row.num"/>
+            <el-input-number v-else v-model="scope.row.num" :min="scope.row.num"/>
         </template>
     </el-table-column>
     <el-table-column prop="date_" label="生成日期"></el-table-column>

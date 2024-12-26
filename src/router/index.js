@@ -73,6 +73,11 @@ const router = createRouter({
       path: '/orderManage',
       name: 'orderManage',
       component: () => import('@/views/OrderManage.vue')
+    },
+    {
+      path: '/supplierManage',
+      name: 'supplierManage',
+      component: () => import('@/views/SupplierManage.vue')
     }
   ],
 })
