@@ -14,6 +14,7 @@ export const useUser = defineStore('user', () => {
         creditLevel: 4,
         total: 4799
     })
+
     const getUserINFO = () => {
         axios.get(`/customer/getINFO/${userInfo.value.customerId}`)
         .then(response =>{
@@ -27,7 +28,7 @@ export const useUser = defineStore('user', () => {
         {discount: 0.15, overdraw: 0, nextLevel: 2000},
         {discount: 0.15, overdraw: 100, nextLevel: 5000},
         {discount: 0.2, overdraw: 200, nextLevel: 5000},
-        {discount: 0.25, overdraw: '∞'},
+        {discount: 0.25, overdraw: '∞'}
     ])
 
     const bookCart = ref([])

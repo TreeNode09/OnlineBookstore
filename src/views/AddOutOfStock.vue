@@ -43,6 +43,16 @@ const page = usePage()
 const color = useColor()
 
 const form = reactive({isbn: '', bookName: '', press: '', supplier: '', count: 0})
+const presses = ref([
+    {pressName: '铁道出版社', pressId: 4},
+    {pressName: '人民邮电出版社', pressId: 5},
+    {pressName: '电子工业出版社', pressId: 6},
+    {pressName: '民族出版社', pressId: 7}
+])
+const suppliers = ref([
+    {supplierName: '主图', supplierId: 1},
+    {supplierName: '东图', supplierId: 2}
+])
 
 onMounted(() => {
     page.currentUser = 'Admin'

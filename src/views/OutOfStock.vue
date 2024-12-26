@@ -23,8 +23,8 @@
     <el-table-column prop="supplierName" label="供应商"></el-table-column>
     <el-table-column label="数量">
         <template #default="scope">
-            <span v-if="selectedIndex.length===0||selectedIndex.indexOf(scope.$index)===-1">{{ stocks[scope.$index].num }}</span>
-            <el-input-number v-else v-model="stocks[scope.$index].num"/>
+            <span v-if="selectedIndex.length===0||selectedIndex.indexOf(scope.$index)===-1">{{ scope.row.num }}</span>
+            <el-input-number v-else v-model="scope.row.num"/>
         </template>
     </el-table-column>
     <el-table-column prop="date_" label="生成日期"></el-table-column>
