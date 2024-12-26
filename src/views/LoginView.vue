@@ -38,7 +38,7 @@ onMounted(() => {
 })
 
 function toHome(){
-    user.getUserINFO()
+    user.getUserInfo()
     router.push('/reader')
 }
 </script>
