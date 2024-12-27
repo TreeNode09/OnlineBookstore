@@ -72,13 +72,17 @@ function getSearchBook(){
 }
 
 function deleteBook(bookId){
-    console.log(bookId)
     axios.delete(`/business/deleteBook/${bookId}`,    
     ).then(response => {
         ElMessage({
             message: response.data.msg,
-            type: 'successful'
+            type: 'success'
         })
+        for(let i = 0; i < books.value.length; i++){
+            if(books.value[i].bookId === bookId){
+                books.value.splice(i, 1)
+            }
+        }
     })
     .catch(error => {alert(error)})
 }

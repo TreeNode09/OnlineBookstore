@@ -40,10 +40,7 @@ const user = useUser()
 
 const isMounted = ref(false)
 
-const books = ref([
-    {bookId: 4, isbn: "978-7-108-04348-1", name: "活着", publish: "作家出版社", price: 29.0,
-    inventory: 40, author: "余华", keyword: "小说 人生", orderNum: 0}
-])
+const books = ref([])
 
 const searchText = ref('')
 

@@ -5,7 +5,7 @@
 <main-button v-if="!isEditing" style="margin-bottom: 20px;" @click="startEdit">修改信息</main-button>
 <plain-button v-if="isEditing" style="margin-bottom: 20px;" @click="endEdit">取消修改</plain-button>
 <main-button v-if="isEditing" style="margin-bottom: 20px;" @click="saveEdit">确认修改</main-button>
-<el-descriptions :column="3" border>
+<el-descriptions v-if="isMounted" :column="3" border>
     <el-descriptions-item label="用户名" label-width="80px" width="300px">
         <div v-if="!isEditing">
             <h3>{{ user.userInfo.userName }}&emsp;</h3>
@@ -66,33 +66,9 @@ onMounted(() => {
     page.currentSubPage = '/reader'
     color.setOption(2)
 
-    //getUserInfo()
+    user.getUserInfo()
     isMounted.value = true
 })
-
-function getUserInfo(){
-    axios.get('', 
-    ).then(response => {
-        newInfo.value = user.userInfo
-    })
-    .catch(error => {alert(error)})
-}
-
-function postUserInfo(){
-    axios.post('', 
-    ).then(response => {
-        
-    })
-    .catch(error => {alert(error)})
-}
-
-function postCharge(){
-    axios.post('', 
-    ).then(response => {
-        
-    })
-    .catch(error => {alert(error)})
-}
 
 function handelFormat(percentage){
     return user.userInfo.totalConsume.toString() + '/' + user.userRight[user.userInfo.creditLevel].nextLevel.toString()
@@ -108,7 +84,7 @@ function endEdit(){
 }
 
 function saveEdit(){
-    //postUserInfo()
+    user.postUserInfo(newInfo.value)
     user.userInfo = newInfo.value
     endEdit()
 }
@@ -118,7 +94,8 @@ function endCharge(){
 }
 
 function saveCharge(){
-    //postCharge()
+    newInfo.value.balance += selectedCharge.value
+    user.postUserInfo(newInfo.value)
     endCharge()
 }
 </script>
