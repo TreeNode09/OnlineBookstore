@@ -16,6 +16,7 @@ export const useUser = defineStore('user', () => {
     }
 
     const postUserInfo = (newInfo) => {
+        console.log(newInfo)
         axios.put('/customer/updateCustomerINFO' , newInfo)
         .then(response =>{
             ElMessage({

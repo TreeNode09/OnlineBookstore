@@ -21,7 +21,7 @@
     <el-table-column prop="balance" label="账户余额" width="200px">
         <template #default="scope">
             <span v-if="editIndex!==scope.row.customerId">{{ scope.row.balance }}</span>
-            <el-input v-else v-model="newInfo.balance" style="width: 100px;"/>
+            <el-input type="number" v-else v-model="newInfo.balance" style="width: 100px;"/>
         </template>
     </el-table-column>
     <el-table-column width="150px" fixed="right">
@@ -67,28 +67,20 @@ onMounted(() => {
     page.currentSubPage = '/userManage'
     color.setOption(1)
 
-    //getUserList()
+    getUserList()
     isMounted.value = true
 })
 
 function getUserList(){
-    axios.get('', 
-    ).then(response => {
-        books.value = response.data.data
-    })
-    .catch(error => {alert(error)})
-}
-
-function getSearchUser(){
-    axios.get('',
+    axios.get('/customer/getAllINFO', 
     ).then(response => {
         users.value = response.data.data
     })
     .catch(error => {alert(error)})
 }
 
-function postUserInfo(){
-    axios.post('',
+function getSearchUser(){
+    axios.get('',
     ).then(response => {
         users.value = response.data.data
     })
@@ -122,7 +114,8 @@ function startEdit(customerId){
 }
 
 function saveEdit(customerId){
-    //postUserInfo()
+    newInfo.value.balance = Number(newInfo.value.balance)
+    user.postUserInfo(newInfo.value)
     for(let i = 0; i < users.value.length; i++){
         if(users.value[i].customerId === customerId){
             users.value[i] = newInfo.value 

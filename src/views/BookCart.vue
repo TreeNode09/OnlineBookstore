@@ -5,7 +5,7 @@
 </el-menu>
 <el-table :data="user.bookCart" style="margin-bottom: 20px;">
     <el-table-column prop="name" label="书名"></el-table-column>
-    <el-table-column prop="count" label="数量"></el-table-column>
+    <el-table-column prop="orderNum" label="数量"></el-table-column>
     <el-table-column prop="price" label="单价"></el-table-column>
     <el-table-column width="75px" fixed="right" >
         <template #default="scope">
