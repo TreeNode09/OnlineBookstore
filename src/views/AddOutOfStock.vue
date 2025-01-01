@@ -5,20 +5,20 @@
     <el-menu-item index="/purchaseList">采购单管理</el-menu-item>
 </el-menu>
 <el-form v-if="isMounted" :model="form">
-    <el-form-item label="ISBN">
-        <el-input v-model="form.isbn"/>
+    <el-form-item label="书号">
+        <el-input v-model="form.bookId"/>
     </el-form-item>
     <el-form-item label="书名">
         <el-select filterable @change="handleChange">
-            <el-option v-for="book in books" :label="book.bookName" :value="book.bookId"/>
+            <el-option v-for="book in books" :label="book.name" :value="book.name"/>
         </el-select>
     </el-form-item>
     <el-form-item label="时间">
-        <el-date-picker v-model="form.date_" type="datetime":shortcuts="shortcuts"/>
+        <el-date-picker v-model="uselessDate" type="datetime":shortcuts="shortcuts"/>
     </el-form-item>
     
     <el-form-item label="数量">
-        <el-input-number v-model="form.count"/>
+        <el-input-number v-model="form.num"/>
     </el-form-item>
     <el-form-item>
         <plain-button @click="toStock">返回</plain-button>
@@ -34,14 +34,15 @@ import router from '@/router'
 
 import { usePage } from '@/stores/page'
 import { useColor } from '@/stores/color'
-
+import {ElMessage} from 'element-plus'
 const page = usePage()
 const color = useColor()
 
 const isMounted = ref(false)
 
 const books = ref([])
-const form = reactive({isbn: '', bookName: '', date_: '', count: 0})
+const form = ref({bookId: '', num: 0})
+const uselessDate = ref('')
 
 const shortcuts = [
   {
@@ -85,13 +86,20 @@ function getBookList(){
 }
 
 function postStock(){
-
+    console.log(form.value)
+    axios.post("/customer/appendStock",form.value)
+    .then(response =>{
+        ElMessage({
+            message: response.data.msg,
+            type: 'success'
+          })
+    })
 }
 
 function handleChange(value){
     for(let i = 0; i < books.value.length; i++){
-        if(books.value[i].bookId === value){
-            form.value = books.value[i]
+        if(books.value[i].name === value){
+            form.value.bookId = books.value[i].bookId
         }
     }
 }
