@@ -1,5 +1,9 @@
 <template>
-<h1>登录！</h1>
+      <el-result icon="info" title="誉达网上书店">
+        <template #sub-title>
+          <p>欢迎使用</p>
+        </template>
+      </el-result>
 </template>
 
 <script setup>

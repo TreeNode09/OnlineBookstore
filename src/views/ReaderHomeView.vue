@@ -68,6 +68,7 @@ onMounted(() => {
 
     user.getUserInfo()
     isMounted.value = true
+    newInfo.value = user.userInfo
 })
 
 function handelFormat(percentage){
@@ -94,6 +95,7 @@ function endCharge(){
 }
 
 function saveCharge(){
+    newInfo.value = user.userInfo
     newInfo.value.balance += selectedCharge.value
     user.postUserInfo(newInfo.value)
     endCharge()

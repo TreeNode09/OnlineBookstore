@@ -31,7 +31,7 @@
     </el-descriptions-item>
     <el-descriptions-item label="">
         <main-button class="right" @click="payOrder"
-            :disabled="user.userInfo.address===''||user.bookCart.length===0||user.userInfo.balance<totalPrice">立即支付</main-button>
+            :disabled="user.userInfo.address===''||user.bookCart.length===0">立即支付</main-button>
         <main-button v-if="user.userInfo.creditLevel>=3" @click="unpayOrder" class="right" style="margin-right: 10px;"
             :disabled="user.userInfo.address === '' || user.bookCart.length === 0">确认订单</main-button>
     </el-descriptions-item>
@@ -87,6 +87,8 @@ async function payOrder() {
             message: response.data.msg,
             type: 'warning'
           });
+          page.pushOption = 'pay';
+          router.push('/orderSucceed');
         }
       })
       .catch(error => {

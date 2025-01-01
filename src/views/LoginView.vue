@@ -3,10 +3,10 @@
     <div class="logo-container" >
         <h1 style="font-weight:bold; color:rgba(0,0,0,0.5); font-style: italic">誉达网上书店</h1>
     </div>
-    <div class="login-form">
+    <div class="login-form"v-if=isMounted>
         <div class="form-group" style="display: flex; justify-content: center;">
             <label for="login_user">用户名</label>
-            <el-input id="login_user" v-model="user.userInfo.username"
+            <el-input id="login_user" v-model="user.userInfo.userName"
                 style="width: 240px" placeholder="input Username or email address"/>
         </div>
         <div class="form-group" style="display: flex; justify-content: center;">
@@ -22,7 +22,7 @@
 </template>
     
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import router from '@/router'
 
 import { usePage } from '@/stores/page'
@@ -32,11 +32,14 @@ import { useUser } from '@/stores/user'
 const page = usePage()
 const color = useColor()
 const user = useUser()
+
+const isMounted = ref(false)
     
 onMounted(() => {
     user.getUserInfo()
     console.log(user.userInfo)
     page.currentPage = '/login'
+    isMounted.value = true
 })
 
 function toHome(){

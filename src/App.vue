@@ -10,6 +10,9 @@
 
 <el-menu :default-active="page.currentPage" :ellipsis="false" :router="true"
     mode="horizontal" :active-text-color="color.palette[color.paletteOption].white">
+    <el-menu-item disabled style="width: 200px;">
+        <h3>誉达网上书店</h3>
+    </el-menu-item>
     <el-menu-item index="/reader" :disabled="page.currentUser==='No login'"
         :class="{'is-active': page.currentUser==='Reader'}">客户</el-menu-item>
     <el-menu-item index="/admin" :disabled="page.currentUser==='No login'"
@@ -258,7 +261,6 @@ h1, h2, h3, h4, h5, h6
 <style scoped>
 .el-menu--horizontal
 {
-    padding-left: 200px;
     padding-right: 100px;
 
     background-color: var(--main);
@@ -280,6 +282,11 @@ h1, h2, h3, h4, h5, h6
     background-color: var(--shadowDark);
 }
 
+.el-menu-item.is-disabled
+{
+    opacity: 1 !important;
+}
+
 .sub-title
 {
     color: var(--white);
@@ -290,7 +297,7 @@ h1, h2, h3, h4, h5, h6
     background-color: var(--dark);
 }
 
-.el-menu--horizontal > .el-menu-item:nth-child(2)
+.el-menu--horizontal > .el-menu-item:nth-child(3)
 {
     margin-right: auto;
 }

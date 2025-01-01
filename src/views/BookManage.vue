@@ -1,6 +1,7 @@
 <template>
 <el-menu :default-active="page.currentSubPage" mode="horizontal" :router="true" class="sub-menu">
-    <el-menu-item index="/bookManage">供书目录</el-menu-item>
+    <el-menu-item index="/bookManage">图书删除</el-menu-item>
+    <el-menu-item index="/bookAdd">图书入库</el-menu-item>
 </el-menu>
 <el-button v-if="!isDelete" type="danger" @click="startDelete">删除图书</el-button>
 <el-button v-if="isDelete" type="danger" plain @click="endDelete">完成删除</el-button>
